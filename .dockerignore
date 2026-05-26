@@ -1,2 +1,8 @@
-venv
-env
+# add venv in the .dockerignore to avoid copying it to the container
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
