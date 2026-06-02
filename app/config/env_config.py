@@ -11,6 +11,8 @@ class EnvConfig:
     
     PROCESSED_DATA_TEST_PATH: str = "./data/processed/loan_test_data.csv"
     PROCESSED_DATA_TRAIN_PATH: str = "./data/processed/loan_train_data.csv"
+    
+    MODEL_PATH: str = "./models/loan_approval_model.pkl"
 
     def __init__(self):
         
@@ -19,10 +21,12 @@ class EnvConfig:
         self.ENV = os.getenv("ENV", self.ENV)
         self.DEBUG = os.getenv("DEBUG", str(self.DEBUG)).lower() in ("true", "1", "t")
         self.PORT = int(os.getenv("PORT", self.PORT))
-        
+                
         self.RAW_DATA_PATH = os.getenv("RAW_DATA_PATH", self.RAW_DATA_PATH)
         self.RAW_DATA_TEST_PATH = os.getenv("RAW_DATA_TEST_PATH", self.RAW_DATA_TEST_PATH)
         self.RAW_DATA_TRAIN_PATH = os.getenv("RAW_DATA_TRAIN_PATH", self.RAW_DATA_TRAIN_PATH)
         
         self.PROCESSED_DATA_TEST_PATH = os.getenv("PROCESSED_DATA_TEST_PATH", self.PROCESSED_DATA_TEST_PATH)
         self.PROCESSED_DATA_TRAIN_PATH = os.getenv("PROCESSED_DATA_TRAIN_PATH", self.PROCESSED_DATA_TRAIN_PATH)
+        
+        self.MODEL_PATH = os.getenv("MODEL_PATH", self.MODEL_PATH)

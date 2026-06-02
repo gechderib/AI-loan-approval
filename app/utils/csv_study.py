@@ -204,11 +204,15 @@ if __name__ == "__main__":
     #  "ID",                        # drop the column
     #  "year",                      # drop the column
     
+    #  "loan_type", 
+    #  "loan_purpose", 
+    #  "occupancy_type", 
+    #  "credit_type", 
+    #  "Region",
+    #  "Gender",
+    
     #  "loan_limit",                # use mode for missing values maybe drop the column
-    #  "Gender",                    # fillna with Sex Not Available
     #  "approv_in_adv",             # use the mode
-    #  "loan_type",                 # use the three type as is
-    #  "loan_purpose",              # use mode for the missing values
     #  "Credit_Worthiness",         # use the value as it l1 or l2 95.74% is l1
     #  "open_credit",               # use the value as it 99.67 is nopc drop
     #  "business_or_commercial",    # use as is mode mode for missing values
@@ -216,15 +220,12 @@ if __name__ == "__main__":
     #  "interest_only",             # use as is mode for missing values
     #  "lump_sum_payment",          # use as is mode for missing values
     #  "construction_type",         # use as is mode for missing values
-    #  "occupancy_type",            # use as is mode for missing values
     #  "Secured_by",                # use as is mode for missing values
     #  "total_units",               # drop the column
-    #  "credit_type",               # use as is mode for missing values
     #  "co-applicant_credit_type",  # use as is mode for missing values 
     #  "submission_of_application", # use as is mode for missing values
-    #  "Region",                    # use as is mode for missing values
     #  "Security_Type",             # use as is or drop the column
-     "age",                       # use as is mode for missing values
+    #  "age",                       # use as is mode for missing values
     
     #  "loan_amount",                 # all value available use as is
     #  "rate_of_interest",            # 75 % data available use as is fillna with median

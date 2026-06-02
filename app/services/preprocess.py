@@ -23,9 +23,10 @@ def preprocess_data(raw_file_path, processed_file_path):
   df["income"].fillna(df["income"].median(), inplace=True)
   df["LTV"].fillna(df["LTV"].median(), inplace=True)
   df["dtir1"].fillna(df["dtir1"].median(), inplace=True)
+  df["term"].fillna(df["term"].mode()[0], inplace=True)
   
   # 2. Drop unnecessary columns
-  df.drop(columns=["ID", "year", "total_units"], inplace=True)
+  df.drop(columns=["ID", "year","total_units"], inplace=True)
   
   loan_limit_map = {
       "cf": 1,
@@ -69,7 +70,7 @@ def preprocess_data(raw_file_path, processed_file_path):
       "home": 0,
       "land": 1,
   }
-  
+    
   co_applicant_credit_type_map = {
       "CIB": 0,
       "EXP": 1,
@@ -84,6 +85,7 @@ def preprocess_data(raw_file_path, processed_file_path):
       "direct": 0,
       "Indriect": 1,
   }
+  
   # 3. Handle categorical variables (example: fill missing values with mode)
 
   df["loan_limit"] = df["loan_limit"].fillna(df["loan_limit"].mode()[0]).map(loan_limit_map)
