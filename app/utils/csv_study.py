@@ -1,5 +1,8 @@
 import pandas as pd
 import json
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from app.config.env_config import EnvConfig
 
 env_config = EnvConfig()
@@ -9,7 +12,15 @@ def get_csv_column_names(file_path) -> list:
     try:
         # Read the CSV file into a DataFrame
         df = pd.read_csv(file_path)
-        
+        # print(df.head())
+        print(df.info())
+        # print(df.describe())
+        # print(df.dtypes)
+        # print(df.isnull().sum())
+        # print(df.nunique())
+        # print(df.columns)
+        # print(df.shape)
+        # print(df.columns.tolist())
         # Get the column names from the DataFrame
         column_names = df.columns.tolist()
         return column_names
@@ -54,6 +65,17 @@ def read_csv_and_get_unique_values(file_path, column_names) -> str:
         return json.dumps({})
 
 
+# visualization of unique values in each column for a given column name using matplotlib and seaborn
+def visualize_unique_values(file_path, column_name):
+    df = pd.read_csv(file_path)
+    plt.figure(figsize=(10, 6))
+    sns.countplot(data=df, x=column_name)
+    plt.title(f"Unique Values in Column: {column_name}")
+    plt.xlabel(column_name)
+    plt.ylabel("Count")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
 
 if __name__ == "__main__":
     file_path = env_config.RAW_DATA_PATH
@@ -83,5 +105,8 @@ if __name__ == "__main__":
      "Security_Type",
      "age",
     ]
-    unique_values = read_csv_and_get_unique_values(file_path, column_names)
-    print(unique_values)
+    # unique_values = read_csv_and_get_unique_values(file_path, column_names)
+    # print(unique_values)
+    
+    print("Visualizing unique values for the 'loan_type' column:")
+    visualize_unique_values(file_path, "loan_type")
