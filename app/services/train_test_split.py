@@ -17,7 +17,7 @@ def raw_train_test_split(file_path, test_size=0.2, random_state=42):
         train_df.to_csv(env_config.RAW_DATA_TRAIN_PATH, index=False)
         test_df.to_csv(env_config.RAW_DATA_TEST_PATH, index=False)
         
-        print(f"Data successfully split into training and testing sets.")
+        print("Data successfully split into training and testing sets.")
         print(f"Training set saved to: {env_config.RAW_DATA_TRAIN_PATH}")
         print(f"Testing set saved to: {env_config.RAW_DATA_TEST_PATH}")
     except Exception as e:

@@ -224,10 +224,10 @@ if __name__ == "__main__":
     #  "submission_of_application", # use as is mode for missing values
     #  "Region",                    # use as is mode for missing values
     #  "Security_Type",             # use as is or drop the column
-    #  "age",                       # use as is mode for missing values
+     "age",                       # use as is mode for missing values
     
     #  "loan_amount",                 # all value available use as is
-    #  "rate_of_interest",            # 75 % data available use as is fillna with mean
+    #  "rate_of_interest",            # 75 % data available use as is fillna with median
     #  "Interest_rate_spread",        # 75 % data available use as is fillna with median
     #  "Upfront_charges",             # 73 % data available use as is fillna with median
     #  "term",                        # all value available use as is
@@ -242,14 +242,12 @@ if __name__ == "__main__":
     # visualize_unique_values(file_path, "loan_type")
     
     # ####### for a column that can be an enum ---------------
-    
-    # distribution = read_csv_and_get_column_distribution(file_path, column_names)
-    # print(distribution)
+    distribution = read_csv_and_get_column_distribution(file_path, column_names)
+    print(distribution)
     
     # to now echa column type effect on the status
-    
     # plot_status_percentage_for_columns(file_path, column_names, "Status")
     
     # draw_column_distribution(file_path, column_names)
     
-    pie_for_none_vs_not_none(file_path, column_names)
+    # pie_for_none_vs_not_none(file_path, column_names)
