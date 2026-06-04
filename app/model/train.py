@@ -1,7 +1,12 @@
 import os
 import pandas as pd
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
 from joblib import dump
 from app.config.env_config import EnvConfig
 
@@ -49,18 +54,27 @@ def train_loan_approval_model(processed_train_file_path, processed_test_file_pat
             print("Failed to load training data. Aborting model training.")
             return
         
-        model = LogisticRegression(max_iter=1000, random_state=42)
-        model.fit(X_train, y_train)
+        pipeline = make_pipeline(
+            StandardScaler(), 
+            # LogisticRegression(max_iter=10000, random_state=42)
+            # RandomForestClassifier(n_estimators=1000, random_state=42, class_weight="balanced",n_jobs=-1)   
+            # XGBClassifier(n_estimators=1000, random_state=42, n_jobs=-1,tree_method="hist")
+            LGBMClassifier(n_estimators=1000, random_state=42, n_jobs=-1)
+        )
+
+        pipeline.fit(X_train, y_train)
         
         ensure_model_directory_exists(model_file_path)
+        print("Model evaluation using LightGBM classifier...")
+        evaluate_model(pipeline, X_test, y_test)
         
-        evaluate_model(model, X_test, y_test)
-        
-        dump(model, model_file_path)
+        dump(pipeline, model_file_path)
         print(f"Model trained and saved to: {model_file_path}")
     except Exception as e:
         print(f"An error occurred during model training: {e}")
- 
+    
+# TN   FP
+# FN   TP 
  
 if __name__ == "__main__":
     processed_train_file_path = env_config.PROCESSED_DATA_TRAIN_PATH
