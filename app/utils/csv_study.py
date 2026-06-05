@@ -162,7 +162,7 @@ def plot_status_percentage_for_columns(
                 / f"{column_name}_{timestamp}.png"
             )
             plt.show()
-            # plt.savefig(file_name, bbox_inches="tight")
+            plt.savefig(file_name, bbox_inches="tight")
             plt.close()
 
             print(f"Saved: {file_name}")
@@ -201,9 +201,9 @@ if __name__ == "__main__":
     column_names = get_csv_column_names(file_path)
     # print(column_names)
     column_names = [
-    #  "ID",                        # drop the column
-    #  "year",                      # drop the column
-    
+    #  "ID",                          # drop the column
+    #  "year",                        # drop the column
+       
     #  "loan_type", 
     #  "loan_purpose", 
     #  "occupancy_type", 
@@ -211,22 +211,22 @@ if __name__ == "__main__":
     #  "Region",
     #  "Gender",
     
-    #  "loan_limit",                # use mode for missing values maybe drop the column
-    #  "approv_in_adv",             # use the mode
-    #  "Credit_Worthiness",         # use the value as it l1 or l2 95.74% is l1
-    #  "open_credit",               # use the value as it 99.67 is nopc drop
-    #  "business_or_commercial",    # use as is mode mode for missing values
-    #  "Neg_ammortization",         # use as is mode for missing values
-    #  "interest_only",             # use as is mode for missing values
-    #  "lump_sum_payment",          # use as is mode for missing values
-    #  "construction_type",         # use as is mode for missing values
-    #  "Secured_by",                # use as is mode for missing values
-    #  "total_units",               # drop the column
-    #  "co-applicant_credit_type",  # use as is mode for missing values 
-    #  "submission_of_application", # use as is mode for missing values
-    #  "Security_Type",             # use as is or drop the column
-    #  "age",                       # use as is mode for missing values
-    
+    #  "loan_limit",                  # use mode for missing values maybe drop the column
+    #  "approv_in_adv",               # use the mode
+    #  "Credit_Worthiness",           # use the value as it l1 or l2 95.74% is l1
+    #  "open_credit",                 # use the value as it 99.67 is nopc drop
+    #  "business_or_commercial",      # use as is mode mode for missing values
+    #  "Neg_ammortization",           # use as is mode for missing values
+    #  "interest_only",               # use as is mode for missing values
+    #  "lump_sum_payment",            # use as is mode for missing values
+    #  "construction_type",           # use as is mode for missing values
+    #  "Secured_by",                  # use as is mode for missing values
+    #  "total_units",                 # drop the column
+    #  "co-applicant_credit_type",    # use as is mode for missing values 
+    #  "submission_of_application",   # use as is mode for missing values
+    #  "Security_Type",               # use as is or drop the column
+    #  "age",                         # use as is mode for missing values
+                                      
     #  "loan_amount",                 # all value available use as is
     #  "rate_of_interest",            # 75 % data available use as is fillna with median
     #  "Interest_rate_spread",        # 75 % data available use as is fillna with median
@@ -247,7 +247,7 @@ if __name__ == "__main__":
     print(distribution)
     
     # to now echa column type effect on the status
-    # plot_status_percentage_for_columns(file_path, column_names, "Status")
+    plot_status_percentage_for_columns(file_path, column_names, "Status")
     
     # draw_column_distribution(file_path, column_names)
     

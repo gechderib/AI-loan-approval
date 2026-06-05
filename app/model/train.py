@@ -15,6 +15,19 @@ env_config = EnvConfig()
 def load_processed_data(processed_file_path):
     try:
         df = pd.read_csv(processed_file_path)
+
+        # print(f'{processed_file_path}{df.groupby("Status")["Interest_rate_spread"].describe()}')
+        # print(pd.crosstab(df["credit_type_EQUI"],df["Status"]))
+        
+        # for col in [
+        #     "rate_of_interest",
+        #     "Upfront_charges",
+        #     "approv_in_adv",
+        #     "Credit_Worthiness"
+        # ]:
+        #     print("\n", col)
+        #     print(df.groupby("Status")[col].describe())
+                
         X_train = df.drop(columns=["Status"])
         y_train = df["Status"]
         return X_train, y_train
@@ -54,18 +67,54 @@ def train_loan_approval_model(processed_train_file_path, processed_test_file_pat
             print("Failed to load training data. Aborting model training.")
             return
         
-        pipeline = make_pipeline(
-            StandardScaler(), 
-            # LogisticRegression(max_iter=10000, random_state=42)
-            # RandomForestClassifier(n_estimators=1000, random_state=42, class_weight="balanced",n_jobs=-1)   
-            # XGBClassifier(n_estimators=1000, random_state=42, n_jobs=-1,tree_method="hist")
-            LGBMClassifier(n_estimators=1000, random_state=42, n_jobs=-1)
+        leakage_columns = [
+            "Interest_rate_spread",
+            "credit_type_EQUI",
+            "rate_of_interest",
+            "Upfront_charges",
+        ]
+        
+        X_train = X_train.drop(columns=leakage_columns)
+        X_test = X_test.drop(columns=leakage_columns)
+
+        dump(X_train.columns.tolist(), env_config.FEATURE_COLUMNS_PATH)
+                
+        # pipeline = make_pipeline(
+        #     StandardScaler(), 
+        #     LogisticRegression(max_iter=10000, random_state=42, n_jobs=-1)   
+        # )
+        
+        # pipeline = RandomForestClassifier(
+        #     n_estimators=300
+        # )
+
+        # pipeline = XGBClassifier(
+        #     n_estimators=500,
+        #     learning_rate=0.05
+        # )
+        
+        pipeline = LGBMClassifier(
+            # n_estimators=500,
+            # learning_rate=0.05
+            
+            n_estimators=1000,
+            learning_rate=0.03,
+            random_state=42
         )
+        
+
 
         pipeline.fit(X_train, y_train)
-        
+        print(X_train.columns)
+        # for feature, importance in sorted(
+        #     zip(X_train.columns, pipeline.feature_importances_),
+        #     key=lambda x: x[1],
+        #     reverse=True
+        # ):
+        #     print(feature, importance)
+                
         ensure_model_directory_exists(model_file_path)
-        print("Model evaluation using LightGBM classifier...")
+        print("Model evaluation using LGBMClassifier...")
         evaluate_model(pipeline, X_test, y_test)
         
         dump(pipeline, model_file_path)
@@ -81,3 +130,11 @@ if __name__ == "__main__":
     processed_test_file_path = env_config.PROCESSED_DATA_TEST_PATH
     model_file_path = env_config.MODEL_PATH
     train_loan_approval_model(processed_train_file_path, processed_test_file_path, model_file_path)
+
+# Confusion Matrix:
+# [[22152   342]
+#  [ 2704  4536]]
+# Accuracy: 0.8976
+# Precision: 0.9299
+# Recall: 0.6265
+# F1 Score: 0.7486

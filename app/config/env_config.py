@@ -5,6 +5,7 @@ class EnvConfig:
     ENV: str = "development"
     DEBUG: bool = True
     PORT: int = 8007
+    
     RAW_DATA_PATH: str = "./data/raw/loan_data.csv"
     RAW_DATA_TEST_PATH: str = "./data/raw/loan_test_data.csv"
     RAW_DATA_TRAIN_PATH: str = "./data/raw/loan_train_data.csv"
@@ -13,6 +14,7 @@ class EnvConfig:
     PROCESSED_DATA_TRAIN_PATH: str = "./data/processed/loan_train_data.csv"
     
     MODEL_PATH: str = "./models/loan_approval_model.pkl"
+    FEATURE_COLUMNS_PATH :str = "./models/feature_columns.pkl"
 
     def __init__(self):
         
@@ -30,3 +32,4 @@ class EnvConfig:
         self.PROCESSED_DATA_TRAIN_PATH = os.getenv("PROCESSED_DATA_TRAIN_PATH", self.PROCESSED_DATA_TRAIN_PATH)
         
         self.MODEL_PATH = os.getenv("MODEL_PATH", self.MODEL_PATH)
+        self.FEATURE_COLUMNS_PATH = os.getenv("FEATURE_COLUMNS_PATH", self.FEATURE_COLUMNS_PATH)
