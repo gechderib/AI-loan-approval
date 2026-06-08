@@ -5,16 +5,25 @@ from app.config.env_config import EnvConfig
 env_config = EnvConfig()
 
 def apply_mappings(df: pd.DataFrame, mappings: dict) -> pd.DataFrame:
-
+    """
+    Apply multiple column mappings to a dataframe.
+    
+    Args:
+        df: input dataframe
+        mappings: dict of {column_name: mapping_dict}
+    
+    Returns:
+        transformed dataframe
+    """
     df = df.copy()
-
-    # for col, mapping in mappings.items():
-    #     if col in df.columns:
-    #         df[col] = df[col].fillna(df[col].mode()[0]).map(mapping)
 
     for col, mapping in mappings.items():
         if col in df.columns:
-            df[col] = df[col].fillna(df[col].mode()[0])
+            df[col] = df[col].fillna(df[col].mode()[0]).map(mapping)
+
+    # for col, mapping in mappings.items():
+    #     if col in df.columns:
+    #         df[col] = df[col].fillna(df[col].mode()[0])
 
 
     return df
@@ -69,7 +78,7 @@ def preprocess_data(raw_file_path, processed_file_path):
         # ordinal encoding (age)
         age_order = ["<25", "25-34", "35-44", "45-54", "55-64", "65-74", ">74"]
         df["age"] = df["age"].fillna(df["age"].mode()[0])
-        # df["age"] = pd.Categorical(df["age"], categories=age_order, ordered=True).codes
+        df["age"] = pd.Categorical(df["age"], categories=age_order, ordered=True).codes
 
         df.to_csv(processed_file_path, index=False)
         print(f"Saved: {processed_file_path}")

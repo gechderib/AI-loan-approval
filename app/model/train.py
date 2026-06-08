@@ -65,7 +65,7 @@ def train_loan_approval_model(processed_train_file_path, processed_test_file_pat
             "Gender",
             
             #### To handle all categorical columns using  one hot encoding
-            "Security_Type", "submission_of_application", "co_applicant_credit_type", "Secured_by", "construction_type", "lump_sum_payment", "interest_only", "Neg_ammortization", "business_or_commercial", "open_credit", "Credit_Worthiness", "approv_in_adv", "loan_limit", "age"
+            # "Security_Type", "submission_of_application", "co_applicant_credit_type", "Secured_by", "construction_type", "lump_sum_payment", "interest_only", "Neg_ammortization", "business_or_commercial", "open_credit", "Credit_Worthiness", "approv_in_adv", "loan_limit", "age"
         ]
 
         preprocessor = ColumnTransformer(
