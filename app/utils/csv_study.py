@@ -222,7 +222,7 @@ if __name__ == "__main__":
     #  "construction_type",           # use as is mode for missing values
     #  "Secured_by",                  # use as is mode for missing values
     #  "total_units",                 # drop the column
-    #  "co-applicant_credit_type",    # use as is mode for missing values 
+    #  "co_applicant_credit_type",    # use as is mode for missing values 
     #  "submission_of_application",   # use as is mode for missing values
     #  "Security_Type",               # use as is or drop the column
     #  "age",                         # use as is mode for missing values
