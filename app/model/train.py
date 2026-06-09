@@ -65,7 +65,7 @@ def train_loan_approval_model(processed_train_file_path, processed_test_file_pat
             "Gender",
             
             #### To handle all categorical columns using  one hot encoding
-            # "Security_Type", "submission_of_application", "co_applicant_credit_type", "Secured_by", "construction_type", "lump_sum_payment", "interest_only", "Neg_ammortization", "business_or_commercial", "open_credit", "Credit_Worthiness", "approv_in_adv", "loan_limit", "age"
+            "Security_Type", "submission_of_application", "co_applicant_credit_type", "Secured_by", "construction_type", "lump_sum_payment", "interest_only", "Neg_ammortization", "business_or_commercial", "open_credit", "Credit_Worthiness", "approv_in_adv", "loan_limit", "age"
         ]
 
         preprocessor = ColumnTransformer(
@@ -88,8 +88,23 @@ def train_loan_approval_model(processed_train_file_path, processed_test_file_pat
                 LGBMClassifier(
                     n_estimators=500,
                     learning_rate=0.05,
+                    max_depth=-1,
+                    num_leaves=64,
+                    min_child_samples=50,
+                    subsample=0.8,
+                    colsample_bytree=0.8,
+                    reg_alpha=0.1,
+                    reg_lambda=0.1,
+                    class_weight="balanced",
                     random_state=42
                 )
+                # LGBMClassifier(
+                #     class_weight="balanced",
+                #     n_estimators=500,
+                #     learning_rate=0.05,
+                #     random_state=42
+                    
+                # )
             )
         ])
 

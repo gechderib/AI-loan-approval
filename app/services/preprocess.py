@@ -5,25 +5,16 @@ from app.config.env_config import EnvConfig
 env_config = EnvConfig()
 
 def apply_mappings(df: pd.DataFrame, mappings: dict) -> pd.DataFrame:
-    """
-    Apply multiple column mappings to a dataframe.
-    
-    Args:
-        df: input dataframe
-        mappings: dict of {column_name: mapping_dict}
-    
-    Returns:
-        transformed dataframe
-    """
-    df = df.copy()
 
-    for col, mapping in mappings.items():
-        if col in df.columns:
-            df[col] = df[col].fillna(df[col].mode()[0]).map(mapping)
+    df = df.copy()
 
     # for col, mapping in mappings.items():
     #     if col in df.columns:
-    #         df[col] = df[col].fillna(df[col].mode()[0])
+    #         df[col] = df[col].fillna(df[col].mode()[0]).map(mapping)
+
+    for col, mapping in mappings.items():
+        if col in df.columns:
+            df[col] = df[col].fillna(df[col].mode()[0])
 
 
     return df

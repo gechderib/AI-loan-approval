@@ -15,7 +15,7 @@ class EnvConfig:
     
     MODEL_PATH: str = "./models/loan_approval_model.pkl"
     FEATURE_COLUMNS_PATH :str = "./models/feature_columns.pkl"
-
+    THRESHOLD_PATH: str = "models/threshold.pkl"
     def __init__(self):
         
         load_dotenv()
@@ -33,3 +33,4 @@ class EnvConfig:
         
         self.MODEL_PATH = os.getenv("MODEL_PATH", self.MODEL_PATH)
         self.FEATURE_COLUMNS_PATH = os.getenv("FEATURE_COLUMNS_PATH", self.FEATURE_COLUMNS_PATH)
+        self.THRESHOLD_PATH = os.getenv("THRESHOLD_PATH", self.THRESHOLD_PATH)
