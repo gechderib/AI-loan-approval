@@ -261,7 +261,8 @@ if __name__ == "__main__":
     y_train_processed_file_path = "./y_train_processed.csv"
     y_test_processed_file_path = "./y_test_processed.csv"
 
-    aaa = preprocess_data(raw_file_path, X_train_processed_file_path)
-    train_model((aaa))
+    xt, xt, yt, yt = preprocess_data(raw_file_path, X_train_processed_file_path)
+    
+    train_model(xt, xt, yt, yt)
     
     
