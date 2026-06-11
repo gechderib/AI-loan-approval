@@ -13,7 +13,9 @@ class EnvConfig:
     PROCESSED_DATA_TEST_PATH: str = "./data/processed/loan_test_data.csv"
     PROCESSED_DATA_TRAIN_PATH: str = "./data/processed/loan_train_data.csv"
     
-    MODEL_PATH: str = "./models/loan_approval_model.pkl"
+    PREPROCESSOR_PATH: str = "./data/processed/loan_preprocessor.pkl"
+    
+    MODEL_PATH: str = "./models/loan_approval_model"
     FEATURE_COLUMNS_PATH :str = "./models/feature_columns.pkl"
     THRESHOLD_PATH: str = "models/threshold.pkl"
     def __init__(self):
@@ -34,3 +36,5 @@ class EnvConfig:
         self.MODEL_PATH = os.getenv("MODEL_PATH", self.MODEL_PATH)
         self.FEATURE_COLUMNS_PATH = os.getenv("FEATURE_COLUMNS_PATH", self.FEATURE_COLUMNS_PATH)
         self.THRESHOLD_PATH = os.getenv("THRESHOLD_PATH", self.THRESHOLD_PATH)
+        
+        self.PREPROCESSOR_PATH = os.getenv("PREPROCESSOR_PATH", self.PREPROCESSOR_PATH)

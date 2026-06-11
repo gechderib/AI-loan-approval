@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from enum import Enum
 
 
@@ -15,11 +15,6 @@ class ApprovalInAdvance(str, Enum):
 class CreditWorthiness(str, Enum):
     l1 = "l1"
     l2 = "l2"
-
-
-class OpenCredit(str, Enum):
-    nopc = "nopc"
-    opc = "opc"
 
 
 class BusinessOrCommercial(str, Enum):
@@ -42,16 +37,6 @@ class LumpSumPayment(str, Enum):
     lpsm = "lpsm"
 
 
-class ConstructionType(str, Enum):
-    sb = "sb"
-    mh = "mh"
-
-
-class SecuredBy(str, Enum):
-    home = "home"
-    land = "land"
-
-
 class CoApplicantCreditType(str, Enum):
     CIB = "CIB"
     EXP = "EXP"
@@ -60,11 +45,6 @@ class CoApplicantCreditType(str, Enum):
 class SubmissionOfApplication(str, Enum):
     to_inst = "to_inst"
     not_inst = "not_inst"
-
-
-class SecurityType(str, Enum):
-    direct = "direct"
-    indirect = "Indriect"
 
 
 class LoanType(str, Enum):
@@ -86,14 +66,14 @@ class OccupancyType(str, Enum):
     ir = "ir"
 
 
-class Region(str, Enum):
+class RegionEnum(str, Enum):
     north = "North"
     north_east = "North-East"
     central = "central"
     south = "south"
 
 
-class Gender(str, Enum):
+class GenderEnum(str, Enum):
     male = "Male"
     female = "Female"
     joint = "Joint"
@@ -115,37 +95,35 @@ class LoanPredictionResponse(BaseModel):
     approval_probability: float
 
         
+
 class LoanPredictionRequest(BaseModel):
-    loan_limit: LoanLimit
-    approv_in_adv: ApprovalInAdvance
-    Credit_Worthiness: CreditWorthiness
-    open_credit: OpenCredit
-    business_or_commercial: BusinessOrCommercial
+    loan_limit: LoanLimit = LoanLimit.cf
+    approv_in_adv: ApprovalInAdvance = ApprovalInAdvance.nopre
+    Credit_Worthiness: CreditWorthiness = CreditWorthiness.l1
+    business_or_commercial: BusinessOrCommercial = BusinessOrCommercial.nob_c
 
-    loan_amount: float
-    term: float
-    property_value: float
-    income: float
-    Credit_Score: int
-    LTV: float
-    dtir1: float
+    loan_amount: float = Field(default=100000.0, gt=0)
+    term: float = Field(default=360.0, gt=0)
+    property_value: float = Field(default=150000.0, gt=0)
+    income: float = Field(default=60000.0, gt=0)
+    Credit_Score: int = Field(default=700, ge=300, le=900)
+    LTV: float = Field(default=80.0, ge=0, le=1000)
+    dtir1: float = Field(default=35.0, ge=0, le=100)
 
-    Neg_ammortization: NegAmortization
-    interest_only: InterestOnly
-    lump_sum_payment: LumpSumPayment
+    Neg_ammortization: NegAmortization = NegAmortization.not_neg
+    interest_only: InterestOnly = InterestOnly.not_int
+    lump_sum_payment: LumpSumPayment = LumpSumPayment.not_lpsm
 
-    construction_type: ConstructionType
-    Secured_by: SecuredBy
+    co_applicant_credit_type: CoApplicantCreditType = CoApplicantCreditType.CIB
+    submission_of_application: SubmissionOfApplication = SubmissionOfApplication.to_inst
 
-    co_applicant_credit_type: CoApplicantCreditType
-    submission_of_application: SubmissionOfApplication
-    Security_Type: SecurityType
+    loan_type: LoanType = LoanType.type1
+    loan_purpose: LoanPurpose = LoanPurpose.p1
+    occupancy_type: OccupancyType = OccupancyType.pr
+    Region: RegionEnum = RegionEnum.north
+    Gender: GenderEnum = GenderEnum.male
 
-    loan_type: LoanType
-    loan_purpose: LoanPurpose
-    occupancy_type: OccupancyType
-    Region: Region
-    Gender: Gender
-
-    age: AgeGroup
+    age: AgeGroup = AgeGroup.age_35_44
     
+
+
