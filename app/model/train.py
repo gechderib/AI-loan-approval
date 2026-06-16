@@ -1,7 +1,7 @@
 import joblib
 import os
 import pandas as pd
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score,roc_auc_score
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score,roc_auc_score, classification_report
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 
@@ -14,7 +14,7 @@ from sklearn.ensemble import (
 )
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-
+from sklearn.model_selection import RandomizedSearchCV
 
 from app.config.env_config import EnvConfig
 from app.services.preprocess import preprocess_data
@@ -61,6 +61,8 @@ def evaluate_model(model, y_pred, y_test, probs):
         print(f"Recall: {recall:.4f}")
         print(f"F1 Score: {f1:.4f}")
         print(f"AUC: {auc:.4f}")
+        print("\nClassification Report:")
+        print(classification_report(y_test, y_pred))
     except Exception as e:
         print(f"An error occurred during model evaluation: {e}") 
     
@@ -98,24 +100,16 @@ def train_loan_approval_model(raw_file_path, model_file_path):
             # ),
 
             "LGBMClassifier": LGBMClassifier(
-                n_estimators=500,
-                learning_rate=0.05,
-                max_depth=8,
-                num_leaves=31,
-                min_child_samples=20,
-                subsample=0.8,
-                colsample_bytree=0.8,
-                reg_alpha=0.1,
-                reg_lambda=0.1,
                 random_state=42,
-                # class_weight="balanced",
-                n_jobs=-1
-            )        
+                class_weight="balanced",
+                n_jobs=-1,
+                verbose=-1,          
+                min_split_gain=0.01   
+            )   
         }
 
+
         for model_name, model in models.items():        
-            # model_file_path = model_file_path+model_name+".pkl"
-            
             model.fit(X_train, y_train)
 
             y_pred = model.predict(X_test)
@@ -141,10 +135,3 @@ if __name__ == "__main__":
     
     train_loan_approval_model(raw_file_path, model_file_path)
 
-# Confusion Matrix:
-# [[22152   342]
-#  [ 2704  4536]]
-# Accuracy: 0.8976
-# Precision: 0.9299
-# Recall: 0.6265
-# F1 Score: 0.7486
