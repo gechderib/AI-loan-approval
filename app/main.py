@@ -18,9 +18,9 @@ def read_root():
     return {"Hello": "World"}
 
 
-# @app.post("/predict", response_model=LoanPredictionResponse)
-# def predict_loan(req: LoanPredictionRequest):
-#     return predict(req)
+@app.post("/predict_j", response_model=LoanPredictionResponse)
+def predict_loan(req: LoanPredictionRequest):
+    return predict(req)
 
 
 @app.post("/predict", response_model=LoanPredictionResponse)
