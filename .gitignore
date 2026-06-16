@@ -2,7 +2,7 @@
 venv
 env
 
-models/loan_approval_model
+# models/loan_approval_model
 
 __pycache__/
 *.pyc
