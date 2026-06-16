@@ -22,6 +22,8 @@ class EnvConfig:
         
         load_dotenv()
         
+        print("jjjjjjjjjjjjjjjjjjjj: "+ os.getenv("PROCESSED_DATA_TEST_PATH"))
+        
         self.ENV = os.getenv("ENV", self.ENV)
         self.DEBUG = os.getenv("DEBUG", str(self.DEBUG)).lower() in ("true", "1", "t")
         self.PORT = int(os.getenv("PORT", self.PORT))
