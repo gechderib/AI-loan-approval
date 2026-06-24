@@ -194,12 +194,17 @@ def pie_for_none_vs_not_none(file_path, column_names):
             plt.show()
     except Exception as e:
         print(f"An error occurred: {e}")  
-        
+    
+def raw_data_count(df):
+
+    print(f"Total rows: {len(df)}")
+    print(f"Total columns: {len(df.columns)}")
+    print(f"Column names: {df.columns.tolist()}")
 if __name__ == "__main__":
     file_path = env_config.RAW_DATA_PATH
     
-    column_names = get_csv_column_names(file_path)
-    # print(column_names)
+    df = pd.read_csv(file_path)
+    raw_data_count(df)
     column_names = [
     #  "ID",                          # drop the column
     #  "year",                        # drop the column
@@ -243,12 +248,13 @@ if __name__ == "__main__":
     # visualize_unique_values(file_path, "loan_type")
     
     # ####### for a column that can be an enum ---------------
-    distribution = read_csv_and_get_column_distribution(file_path, column_names)
-    print(distribution)
+    # distribution = read_csv_and_get_column_distribution(file_path, column_names)
+    # print(distribution)
     
     # to now echa column type effect on the status
-    plot_status_percentage_for_columns(file_path, column_names, "Status")
+    # plot_status_percentage_for_columns(file_path, column_names, "Status")
     
     # draw_column_distribution(file_path, column_names)
     
     # pie_for_none_vs_not_none(file_path, column_names)
+
