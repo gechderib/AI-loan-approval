@@ -103,8 +103,15 @@ def train_loan_approval_model(raw_file_path, model_file_path):
                 random_state=42,
                 class_weight="balanced",
                 n_jobs=-1,
-                verbose=-1,          
-                min_split_gain=0.01   
+                verbose=-1,
+                learning_rate=0.05,
+                n_estimators=400,
+                num_leaves=31,
+                max_depth=7,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.1,
+                reg_lambda=0.1
             )   
         }
 

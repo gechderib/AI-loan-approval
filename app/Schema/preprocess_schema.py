@@ -91,7 +91,7 @@ class AgeGroup(str, Enum):
     
     
 class LoanPredictionResponse(BaseModel):
-    prediction: int
+    is_approved: bool
     approval_probability: float
 
         
@@ -108,7 +108,7 @@ class LoanPredictionRequest(BaseModel):
     income: float = Field(default=60000.0, gt=0)
     Credit_Score: int = Field(default=700, ge=300, le=900)
     LTV: float = Field(default=80.0, ge=0, le=1000)
-    dtir1: float = Field(default=35.0, ge=0, le=100)
+    dtir1: float = Field(default=35.0, ge=0)
 
     Neg_ammortization: NegAmortization = NegAmortization.not_neg
     interest_only: InterestOnly = InterestOnly.not_int
@@ -126,4 +126,16 @@ class LoanPredictionRequest(BaseModel):
     age: AgeGroup = AgeGroup.age_35_44
     
 
-
+class UserLoanApplicationRequest(BaseModel):
+    ssn: str = Field(..., description="Social Security Number for credit lookup")
+    loan_amount: float = Field(default=100000.0, gt=0)
+    property_value: float = Field(default=150000.0, gt=0)
+    income: float = Field(default=60000.0, gt=0)
+    term: float = Field(default=360.0, gt=0)
+    monthly_debt: float = Field(default=1000.0, ge=0, description="User's existing monthly debt payments")
+    
+    loan_purpose: LoanPurpose = LoanPurpose.p1
+    occupancy_type: OccupancyType = OccupancyType.pr
+    Region: RegionEnum = RegionEnum.north
+    Gender: GenderEnum = GenderEnum.male
+    age: AgeGroup = AgeGroup.age_35_44

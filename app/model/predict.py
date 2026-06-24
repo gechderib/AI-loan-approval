@@ -18,7 +18,10 @@ def predict(request: LoanPredictionRequest) -> LoanPredictionResponse:
     prediction = model.predict(X_processed)
     probability = model.predict_proba(X_processed)
 
+    # Model returns 0 for "Not Default" (Approved) and 1 for "Default" (Rejected)
+    is_approved = bool(prediction[0] == 0)
+
     return LoanPredictionResponse(
-        prediction=int(prediction[0]),
-        approval_probability=float(probability[0][1])
+        is_approved=is_approved,
+        approval_probability=float(probability[0][0])
     )
